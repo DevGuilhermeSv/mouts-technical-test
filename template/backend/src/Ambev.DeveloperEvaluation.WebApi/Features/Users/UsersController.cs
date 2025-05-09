@@ -8,6 +8,8 @@ using Ambev.DeveloperEvaluation.WebApi.Features.Users.DeleteUser;
 using Ambev.DeveloperEvaluation.Application.Users.CreateUser;
 using Ambev.DeveloperEvaluation.Application.Users.GetUser;
 using Ambev.DeveloperEvaluation.Application.Users.DeleteUser;
+using Ambev.DeveloperEvaluation.Application.Users.ListUsers;
+using Ambev.DeveloperEvaluation.WebApi.Features.Users.ListUsers;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users;
 
@@ -117,5 +119,22 @@ public class UsersController : BaseController
             Success = true,
             Message = "User deleted successfully"
         });
+    }
+
+    /// <summary>
+    /// Retrieves a list of all users with optional pagination and ordering
+    /// </summary>
+    /// <param name="request">The request object containing pagination and ordering parameters</param>
+    /// <returns>Paginated list of users</returns>
+    [HttpGet]
+    [ProducesResponseType(typeof(PaginatedResponse<GetUserResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllUsers(
+        [FromQuery] ListUsersRequest request)
+    {
+        
+        var query = _mapper.Map<ListUsersQuery>(request);
+
+        var result = await _mediator.Send(query);
+        return OkPaginated(result);
     }
 }

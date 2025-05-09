@@ -38,4 +38,19 @@ public interface IUserRepository
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>True if the user was deleted, false if not found</returns>
     Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Retrieves all users
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>An IQueryable of Users</returns>
+    IQueryable<User> GetAll(CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Retrieves all users
+    /// </summary>
+    /// <param name="orderBy">The property to order the results by (e.g., "username")</param>
+    /// <param name="orderDir">The direction of the ordering, either "asc" for ascending or "desc" for descending (default: "desc")</param>
+    /// <param name="cancellationToken">Cancellation token to cancel the operation</param>
+    /// <returns>An IQueryable of Users</returns>
+    IQueryable<User> GetAll(string orderBy, string? orderDir = "desc",CancellationToken cancellationToken = default);
 }

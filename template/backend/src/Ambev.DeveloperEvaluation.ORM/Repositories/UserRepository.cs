@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using System.Linq.Dynamic.Core;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -71,5 +72,20 @@ public class UserRepository : IUserRepository
         _context.Users.Remove(user);
         await _context.SaveChangesAsync(cancellationToken);
         return true;
+    }
+
+    public IQueryable<User> GetAll(CancellationToken cancellationToken = default)
+    {
+        return _context.Users;
+    }
+
+    public IQueryable<User> GetAll(string orderBy, string? orderDir = "desc", CancellationToken cancellationToken = default)
+    {
+        orderDir ??= "desc";
+        if (orderDir is not ("desc" or "asc"))
+        {
+            throw new ArgumentException("Invalid order direction. Use 'asc' or 'desc'.");
+        }
+        return _context.Users.OrderBy($"{orderBy} {orderDir}");
     }
 }
