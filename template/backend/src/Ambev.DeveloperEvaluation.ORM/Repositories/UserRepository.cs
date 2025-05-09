@@ -88,4 +88,9 @@ public class UserRepository : IUserRepository
         }
         return _context.Users.OrderBy($"{orderBy} {orderDir}");
     }
+
+    public void Update(User user)
+    {
+         _context.Users.Update(user);
+    }
 }
