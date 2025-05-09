@@ -9,7 +9,9 @@ using Ambev.DeveloperEvaluation.Application.Users.CreateUser;
 using Ambev.DeveloperEvaluation.Application.Users.GetUser;
 using Ambev.DeveloperEvaluation.Application.Users.DeleteUser;
 using Ambev.DeveloperEvaluation.Application.Users.ListUsers;
+using Ambev.DeveloperEvaluation.Application.Users.UpdateUser;
 using Ambev.DeveloperEvaluation.WebApi.Features.Users.ListUsers;
+using Ambev.DeveloperEvaluation.WebApi.Features.Users.UpdateUser;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users;
 
@@ -137,4 +139,32 @@ public class UsersController : BaseController
         var result = await _mediator.Send(query);
         return OkPaginated(result);
     }
+
+    /// <summary>
+    /// Updates a specific user
+    /// </summary>
+    /// <param name="id">User ID</param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <param name="command">Updated user data</param>
+    /// <returns>The updated user</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(ApiResponseWithData<UpdateUserResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserRequest request,
+        CancellationToken cancellationToken)
+    {
+        var validator = new UpdateUserRequestValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+
+        var command = _mapper.Map<UpdateUserCommand>(request);
+        command.Id = id;
+
+        var updatedUser = await _mediator.Send(command, cancellationToken);
+        return updatedUser == null ? NotFound() : Ok(updatedUser);
+    }
+
 }
