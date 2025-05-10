@@ -59,4 +59,6 @@ public interface IUserRepository
     /// <param name="user">The user to update</param>
     /// <returns>The created user</returns>
     void Update(User user);
+
+    Task SaveChangesAsync(CancellationToken cancellationToken);
 }

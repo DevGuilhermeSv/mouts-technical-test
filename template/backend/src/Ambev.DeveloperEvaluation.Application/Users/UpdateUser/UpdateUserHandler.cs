@@ -41,6 +41,7 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, UpdateUserRe
         _mapper.Map(command, user); 
 
         _userRepository.Update(user);
+        await _userRepository.SaveChangesAsync(cancellationToken);
         return _mapper.Map<UpdateUserResult>(user);
     }
 }

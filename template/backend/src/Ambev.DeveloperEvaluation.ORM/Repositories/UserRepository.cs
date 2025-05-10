@@ -93,4 +93,9 @@ public class UserRepository : IUserRepository
     {
          _context.Users.Update(user);
     }
+
+    public Task SaveChangesAsync(CancellationToken cancellationToken)
+    {
+        return _context.SaveChangesAsync(cancellationToken);
+    }
 }
