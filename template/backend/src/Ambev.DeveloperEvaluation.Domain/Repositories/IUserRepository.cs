@@ -53,4 +53,12 @@ public interface IUserRepository
     /// <param name="cancellationToken">Cancellation token to cancel the operation</param>
     /// <returns>An IQueryable of Users</returns>
     IQueryable<User> GetAll(string orderBy, string? orderDir = "desc",CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Updates a new user in the repository
+    /// </summary>
+    /// <param name="user">The user to update</param>
+    /// <returns>The created user</returns>
+    void Update(User user);
+
+    Task SaveChangesAsync(CancellationToken cancellationToken);
 }

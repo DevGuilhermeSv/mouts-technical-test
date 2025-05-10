@@ -88,4 +88,14 @@ public class UserRepository : IUserRepository
         }
         return _context.Users.OrderBy($"{orderBy} {orderDir}");
     }
+
+    public void Update(User user)
+    {
+         _context.Users.Update(user);
+    }
+
+    public Task SaveChangesAsync(CancellationToken cancellationToken)
+    {
+        return _context.SaveChangesAsync(cancellationToken);
+    }
 }
