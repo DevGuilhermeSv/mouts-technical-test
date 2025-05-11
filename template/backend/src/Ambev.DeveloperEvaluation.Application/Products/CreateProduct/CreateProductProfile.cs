@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.ValueObjects;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
 
@@ -15,5 +16,6 @@ public class CreateProductProfile : Profile
     {
         CreateMap<CreateProductCommand, Product>();
         CreateMap<Product, CreateProductResult>();
+        CreateMap<RatingDto, Rating>().ReverseMap();
     }
 }
