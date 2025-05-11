@@ -26,6 +26,6 @@ public class BaseCartDto
 /// </summary>
 public class CartProductDto
 {
-    public int ProductId { get; set; }
+    public Guid ProductId { get; set; }
     public int Quantity { get; set; }
 }

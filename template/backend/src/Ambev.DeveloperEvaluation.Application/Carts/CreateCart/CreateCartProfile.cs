@@ -15,7 +15,15 @@ public class CreateCartProfile : Profile
     /// </summary>
     public CreateCartProfile()
     {
-        CreateMap<CreateCartCommand, Cart>();
+        CreateMap<CreateCartCommand, Cart>()
+            .ConstructUsing(cmd =>
+                new Cart(
+                     cmd.UserId,
+                     cmd.Date,
+                     cmd.Products
+                        .Select(p => new CartProduct(p.ProductId, p.Quantity,null))
+                        .ToList()
+                ));
         CreateMap<Cart, CreateCartResult>();
         CreateMap<CartProductDto, CartProduct>().ReverseMap();
     }
