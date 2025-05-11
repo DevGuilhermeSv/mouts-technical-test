@@ -5,60 +5,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Repositories;
 /// <summary>
 /// Repository interface for User entity operations
 /// </summary>
-public interface IUserRepository
+public interface IUserRepository: IRepository<User>
 {
-    /// <summary>
-    /// Creates a new user in the repository
-    /// </summary>
-    /// <param name="user">The user to create</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The created user</returns>
-    Task<User> CreateAsync(User user, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Retrieves a user by their unique identifier
-    /// </summary>
-    /// <param name="id">The unique identifier of the user</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The user if found, null otherwise</returns>
-    Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Retrieves a user by their email address
-    /// </summary>
-    /// <param name="email">The email address to search for</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The user if found, null otherwise</returns>
-    Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Deletes a user from the repository
-    /// </summary>
-    /// <param name="id">The unique identifier of the user to delete</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>True if the user was deleted, false if not found</returns>
-    Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
     
-    /// <summary>
-    /// Retrieves all users
-    /// </summary>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>An IQueryable of Users</returns>
-    IQueryable<User> GetAll(CancellationToken cancellationToken = default);
-    /// <summary>
-    /// Retrieves all users
-    /// </summary>
-    /// <param name="orderBy">The property to order the results by (e.g., "username")</param>
-    /// <param name="orderDir">The direction of the ordering, either "asc" for ascending or "desc" for descending (default: "desc")</param>
-    /// <param name="cancellationToken">Cancellation token to cancel the operation</param>
-    /// <returns>An IQueryable of Users</returns>
-    IQueryable<User> GetAll(string orderBy, string? orderDir = "desc",CancellationToken cancellationToken = default);
-    /// <summary>
-    /// Updates a new user in the repository
-    /// </summary>
-    /// <param name="user">The user to update</param>
-    /// <returns>The created user</returns>
-    void Update(User user);
-
-    Task SaveChangesAsync(CancellationToken cancellationToken);
 }
