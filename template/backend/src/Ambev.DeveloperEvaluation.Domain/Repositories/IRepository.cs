@@ -21,13 +21,6 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
     /// <returns>The entity if found, null otherwise</returns>
     Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
-    /// <summary>
-    /// Retrieves a entity by their email address
-    /// </summary>
-    /// <param name="email">The email address to search for</param>
-    /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The entity if found, null otherwise</returns>
-    Task<TEntity?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes a entity from the repository
