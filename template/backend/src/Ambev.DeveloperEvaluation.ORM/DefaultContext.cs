@@ -11,7 +11,7 @@ public class DefaultContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Address> Addresses { get; set;}
-
+    public DbSet<Product> Products { get; set; }
     public DefaultContext(DbContextOptions<DefaultContext> options) : base(options)
     {
     }
@@ -21,6 +21,7 @@ public class DefaultContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
         modelBuilder.AddressConfiguration();
+        modelBuilder.ProductConfiguration();
     }
     }
 public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>
