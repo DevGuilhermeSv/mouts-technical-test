@@ -10,7 +10,8 @@ public class Cart: BaseEntity
     /// <summary>
     /// The ID of the user who owns the cart.
     /// </summary>
-    public int UserId { get; private set; }
+    public Guid UserId { get; private set; }
+    public User? User {get; private set;}
 
     /// <summary>
     /// The date the cart was created or updated.
@@ -24,7 +25,7 @@ public class Cart: BaseEntity
 
     protected Cart() { } 
 
-    public Cart(int userId, DateTime date, List<CartProduct> products)
+    public Cart(Guid userId, DateTime date, List<CartProduct> products)
     {
         UserId = userId;
         Date = date;
@@ -42,14 +43,15 @@ public class CartProduct :BaseEntity
     public Guid ProductId { get; private set; }
     public Product Product { get; private set; }
     public int Quantity { get; private set; }
+    protected CartProduct() { }
 
-    public CartProduct(Guid productId, int quantity, Guid cartId)
+    public CartProduct(Guid productId, int quantity, Guid? cartId)
     {
         if (quantity <= 0)
             throw new ArgumentOutOfRangeException(nameof(quantity), "Quantity must be at least 1.");
 
         ProductId = productId;
         Quantity = quantity;
-        CartId = cartId;
+        CartId = cartId ?? Guid.Empty;
     }
 }
