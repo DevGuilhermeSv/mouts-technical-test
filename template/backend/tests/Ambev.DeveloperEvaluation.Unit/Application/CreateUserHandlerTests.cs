@@ -2,6 +2,7 @@ using Ambev.DeveloperEvaluation.Application.Users.CreateUser;
 using Ambev.DeveloperEvaluation.Common.Security;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Ambev.DeveloperEvaluation.Unit.Application.TestData;
 using Ambev.DeveloperEvaluation.Unit.Domain;
 using AutoMapper;
 using FluentAssertions;
@@ -54,9 +55,12 @@ public class CreateUserHandlerTests
         var result = new CreateUserResult
         {
             Id = user.Id,
+            Name = new()
+            {
+                FirstName = command.Name.FirstName,
+                LastName = command.Name.LastName
+            }
         };
-
-
         _mapper.Map<User>(command).Returns(user);
         _mapper.Map<CreateUserResult>(user).Returns(result);
 
@@ -80,7 +84,14 @@ public class CreateUserHandlerTests
     public async Task Handle_InvalidRequest_ThrowsValidationException()
     {
         // Given
-        var command = new CreateUserCommand(); // Empty command will fail validation
+        var command = new CreateUserCommand()
+        {
+            Name = new()
+            {
+                FirstName = "",
+                LastName = ""
+            }
+        }; // Empty command will fail validation
 
         // When
         var act = () => _handler.Handle(command, CancellationToken.None);

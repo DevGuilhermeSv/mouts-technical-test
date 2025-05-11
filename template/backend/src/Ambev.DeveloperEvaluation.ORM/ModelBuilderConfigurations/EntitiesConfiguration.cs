@@ -15,4 +15,14 @@ public static class EntitiesConfiguration
             .OwnsOne<Geolocation>(x => x.Geolocation)
             .Property(x => x.Long).HasColumnName("Long");
     }
+    public static void ProductConfiguration(this ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Product>()
+            .OwnsOne(x => x.Rating)
+            .Property(x => x.Rate).HasColumnName("Rate");
+        
+        modelBuilder.Entity<Product>()
+            .OwnsOne(x => x.Rating)
+            .Property(x => x.Count).HasColumnName("Count");
+    }
 }
