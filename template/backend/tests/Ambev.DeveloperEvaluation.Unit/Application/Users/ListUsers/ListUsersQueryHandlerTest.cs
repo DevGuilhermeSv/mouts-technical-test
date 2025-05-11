@@ -31,7 +31,15 @@ public class ListUsersQueryHandlerTests
         var cancellationToken = CancellationToken.None;
         var users = new List<User> { new User() }; // Assume User is a valid entity
         var usersAsQueryable = users.AsQueryable();
-        var userResultQueryable = users.Select(u => new GetUserResult()).BuildMockDbSet();
+        var getUserResult = new GetUserResult()
+        {
+            Name = new()
+            {
+                FirstName = "test",
+                LastName = "Test"
+            }
+        };
+        var userResultQueryable = users.Select(u => getUserResult).BuildMockDbSet();
 
         _userRepositoryMock.GetAll(cancellationToken).Returns(usersAsQueryable);
         _mapperMock.ProjectTo<GetUserResult>(Arg.Any<IQueryable<User>>()).Returns(userResultQueryable);
@@ -52,8 +60,16 @@ public class ListUsersQueryHandlerTests
         var request = new ListUsersQuery { Page = 1, Size = 10, Order = "username asc" };
         var cancellationToken = CancellationToken.None;
         var users = new List<User> { new User() };
+        var getUserResult = new GetUserResult()
+        {
+            Name = new()
+            {
+                FirstName = "test",
+                LastName = "Test"
+            }
+        };
         var usersAsQueryable = users.AsQueryable();
-        var userResultQueryable = users.Select(u => new GetUserResult()).AsQueryable().BuildMockDbSet();;
+        var userResultQueryable = users.Select(u => getUserResult).AsQueryable().BuildMockDbSet();;
 
         _userRepositoryMock.GetAll("username", "asc", cancellationToken).Returns(usersAsQueryable);
         _mapperMock.ProjectTo<GetUserResult>(Arg.Any<IQueryable<User>>()).Returns(userResultQueryable);
@@ -74,8 +90,16 @@ public class ListUsersQueryHandlerTests
         var request = new ListUsersQuery { Page = 1, Size = 10, Order = "username invalid" };
         var cancellationToken = CancellationToken.None;
         var users = new List<User> { new User() };
+        var getUserResult = new GetUserResult()
+        {
+            Name = new()
+            {
+                FirstName = "test",
+                LastName = "Test"
+            }
+        };
         var usersAsQueryable = users.AsQueryable();
-        var userResultQueryable = users.Select(u => new GetUserResult()).AsQueryable().BuildMockDbSet();;
+        var userResultQueryable = users.Select(u => getUserResult).AsQueryable().BuildMockDbSet();;
 
         _userRepositoryMock.GetAll("username", "desc", cancellationToken).Returns(usersAsQueryable);
         _mapperMock.ProjectTo<GetUserResult>(Arg.Any<IQueryable<User>>()).Returns(userResultQueryable);
