@@ -43,6 +43,9 @@ public class Address : BaseEntity
     
     public Address(string city, string street, int number,ZipCode zipCode)
     {
+        City = city;
+        Street = street;
+        Number = number;
         _zipCode = zipCode;
     }
 }
