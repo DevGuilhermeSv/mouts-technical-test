@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Application.Users;
+﻿using Ambev.DeveloperEvaluation.Application.Address;
+using Ambev.DeveloperEvaluation.Application.Users;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users.UpdateUser;
@@ -8,5 +9,6 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Users.UpdateUser;
 /// </summary>
 public class UpdateUserRequest : BaseUserDto
 {
+    public BaseAddressDto? Address {get; set;}
 
 }

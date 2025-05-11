@@ -77,6 +77,19 @@ public class User : BaseEntity, IUser
     /// </summary>
     /// <returns>The user's role as a string.</returns>
     string IUser.Role => Role.ToString();
+    
+    /// <summary>
+    /// Navigation property for the user's address.
+    /// Gets or sets the user's address information.
+    /// This property can be null, indicating that the user may not have an address associated.
+    /// </summary>
+    public Address? Address { get; set; }
+
+    /// <summary>
+    /// Gets or sets the unique identifier for the user's address.
+    /// This property can be null, indicating that the user may not have an address associated.
+    /// </summary>
+    public Guid? AddressId { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the User class.

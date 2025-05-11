@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
+﻿using Ambev.DeveloperEvaluation.Application.Address;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.UpdateUser;
 
@@ -16,5 +17,11 @@ public class UpdateUserResult : BaseUserDto
     /// </summary>
     /// <value>A GUID that uniquely identifies the updated user in the system.</value>
     public Guid Id { get; set; }
+    
+    
+    /// <summary>
+    /// The address of the user
+    /// </summary>
+    public BaseAddressDto? Address { get; set; }
    
 }

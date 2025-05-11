@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
+﻿using Ambev.DeveloperEvaluation.Application.Address;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.UpdateUser;
@@ -12,5 +13,10 @@ public class UpdateUserCommand : BaseUserDto, IRequest<UpdateUserResult>
     /// Gets or sets the ID of the user to update
     /// </summary>
     public Guid Id { get; set; }
+    
+    /// <summary>
+    /// The address of the user
+    /// </summary>
+    public BaseAddressDto? Address { get; set; }
     
 }
