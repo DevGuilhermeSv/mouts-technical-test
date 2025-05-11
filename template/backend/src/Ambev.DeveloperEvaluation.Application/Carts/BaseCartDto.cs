@@ -6,14 +6,9 @@ namespace Ambev.DeveloperEvaluation.Application.Carts;
 public class BaseCartDto
 {
     /// <summary>
-    /// Unique identifier for the cart.
-    /// </summary>
-    public Guid Id { get; set; }
-
-    /// <summary>
     /// The ID of the user associated with this cart.
     /// </summary>
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
 
     /// <summary>
     /// The date the cart was created or last modified.
@@ -23,14 +18,14 @@ public class BaseCartDto
     /// <summary>
     /// List of Carts in the cart.
     /// </summary>
-    public List<CartCartDto> Carts { get; set; } = new();
+    public List<CartProductDto> Products { get; set; } = new();
 }
 
 /// <summary>
 /// DTO representing a Cart and its quantity inside a cart.
 /// </summary>
-public class CartCartDto
+public class CartProductDto
 {
-    public int CartId { get; set; }
+    public int ProductId { get; set; }
     public int Quantity { get; set; }
 }
