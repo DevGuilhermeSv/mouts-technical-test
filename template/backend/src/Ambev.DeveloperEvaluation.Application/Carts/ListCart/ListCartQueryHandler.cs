@@ -1,12 +1,10 @@
-using Ambev.DeveloperEvaluation.Application.Common;
 using Ambev.DeveloperEvaluation.Application.Carts.GetCart;
-using Ambev.DeveloperEvaluation.Application.Carts.ListCart;
+using Ambev.DeveloperEvaluation.Application.Common;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
-
 using AutoMapper;
 using MediatR;
 
-namespace Ambev.DeveloperEvaluation.Application.Carts.ListCarts;
+namespace Ambev.DeveloperEvaluation.Application.Carts.ListCart;
 
 public class ListCartsQueryHandler : IRequestHandler<ListCartsQuery, PaginatedList<GetCartResult>>
 {

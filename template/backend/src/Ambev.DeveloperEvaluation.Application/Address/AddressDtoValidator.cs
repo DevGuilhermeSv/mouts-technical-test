@@ -1,7 +1,6 @@
-using Ambev.DeveloperEvaluation.Application.Address;
 using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Address;
+namespace Ambev.DeveloperEvaluation.Application.Address;
 
 public class AddressDtoValidator  : AbstractValidator<BaseAddressDto>
 {

@@ -1,7 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
-using Ambev.DeveloperEvaluation.Domain.Validation;
-using Ambev.DeveloperEvaluation.WebApi.Features.Address;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
 

@@ -1,12 +1,10 @@
 using Ambev.DeveloperEvaluation.Application.Common;
 using Ambev.DeveloperEvaluation.Application.Products.GetProduct;
-using Ambev.DeveloperEvaluation.Application.Products.ListProduct;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
-
 using AutoMapper;
 using MediatR;
 
-namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
+namespace Ambev.DeveloperEvaluation.Application.Products.ListProduct;
 
 public class ListProductsQueryHandler : IRequestHandler<ListProductsQuery, PaginatedList<GetProductResult>>
 {
