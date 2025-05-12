@@ -38,18 +38,30 @@ public class SaleItem : BaseEntity
 
     protected SaleItem() { }
 
-    public SaleItem(Guid productId, int quantity, decimal unitPrice, decimal discount)
+
+    public SaleItem(Guid productId, int quantity, decimal unitPrice)
     {
         if (quantity <= 0)
             throw new ArgumentOutOfRangeException(nameof(quantity), "Quantity must be greater than 0.");
+        if (quantity > 20)
+            throw new ArgumentOutOfRangeException(nameof(quantity), "Cannot sell more than 20 identical items.");
         if (unitPrice < 0)
             throw new ArgumentOutOfRangeException(nameof(unitPrice), "Unit price cannot be negative.");
-        if (discount < 0)
-            throw new ArgumentOutOfRangeException(nameof(discount), "Discount cannot be negative.");
 
         ProductId = productId;
         Quantity = quantity;
         UnitPrice = unitPrice;
-        Discount = discount;
+
+        Discount = CalculateDiscount(quantity, unitPrice);
+    }
+
+    private decimal CalculateDiscount(int quantity, decimal unitPrice)
+    {
+        return quantity switch
+        {
+            >= 10 => unitPrice * quantity * 0.20m,
+            >= 4 => unitPrice * quantity * 0.10m,
+            _ => 0m
+        };
     }
 }

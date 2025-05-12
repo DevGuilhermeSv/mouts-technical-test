@@ -47,9 +47,8 @@ public class Sale : BaseEntity
 
     protected Sale() { } // For EF
 
-    public Sale(int saleNumber, DateTime saleDate, Guid userId, string branch, List<SaleItem> items)
+    public Sale(DateTime saleDate, Guid userId, string branch, List<SaleItem> items)
     {
-        SaleNumber = saleNumber;
         SaleDate = saleDate;
         UserId = userId;
         Branch = branch ?? throw new ArgumentNullException(nameof(branch));
