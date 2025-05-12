@@ -13,6 +13,8 @@ public class DefaultContext : DbContext
     public DbSet<Address> Addresses { get; set;}
     public DbSet<Product> Products { get; set; }
     public DbSet<Cart> Carts { get; set; }
+    public DbSet<Sale> Sales { get; set; }
+    public DbSet<SaleItem> SaleItems { get; set; }
     public DefaultContext(DbContextOptions<DefaultContext> options) : base(options)
     {
     }
@@ -23,6 +25,7 @@ public class DefaultContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.AddressConfiguration();
         modelBuilder.ProductConfiguration();
+        modelBuilder.SaleConfiguration();
     }
     }
 public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>

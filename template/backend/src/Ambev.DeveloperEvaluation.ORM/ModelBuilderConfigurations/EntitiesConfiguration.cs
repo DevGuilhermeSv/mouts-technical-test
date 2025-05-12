@@ -25,4 +25,12 @@ public static class EntitiesConfiguration
             .OwnsOne(x => x.Rating)
             .Property(x => x.Count).HasColumnName("Count");
     }
+    
+    public static void SaleConfiguration(this ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Sale>()
+            .HasOne<User>()
+            .WithMany()
+            .HasForeignKey(x=>x.UserId);
+    }
 }
