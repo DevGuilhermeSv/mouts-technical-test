@@ -1,6 +1,6 @@
 namespace Ambev.DeveloperEvaluation.Application.Sales;
 
-public class BaseSaleDto
+public abstract class BaseSaleDto
 {
     /// <summary>
     /// The date and time the sale was made.
@@ -16,20 +16,20 @@ public class BaseSaleDto
     /// The branch where the sale was made.
     /// </summary>
     public string Branch { get; set; } = string.Empty;
-
-
-    /// <summary>
-    /// The list of items sold in this sale.
-    /// </summary>
-    public required  List<SaleItemDto> Items { get;  set; } = new();
+    
 }
 
 public class SaleItemDto
 {
-    public Guid ProductId { get; private set; }
+    public Guid ProductId { get; set; }
     /// <summary>
     /// Quantity of the product sold.
     /// </summary>
-    public int Quantity { get; private set; }
+    public int Quantity { get; set; }
+    
+    /// <summary>
+    /// Unit price of the product.
+    /// </summary>
+    public decimal UnitPrice { get; set; }
     
 }
