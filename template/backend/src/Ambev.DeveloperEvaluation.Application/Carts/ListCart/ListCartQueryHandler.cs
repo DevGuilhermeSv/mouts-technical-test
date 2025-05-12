@@ -30,6 +30,10 @@ public class ListCartsQueryHandler : IRequestHandler<ListCartsQuery, PaginatedLi
                 orderDir = (orderings[1] is "desc" or "asc") ? orderings[1] : "desc"; 
             query = _CartRepository.GetAll(orderBy, orderDir, cancellationToken);
         }
+        
+        query = _CartRepository.DateFilter(query, "_minDate", request.MinDate);
+        
+        query = _CartRepository.DateFilter(query, "_maxDate", request.MaxDate);
 
         var getCartList = _mapper.ProjectTo<GetCartResult>(query);
         var result = await ListCartsResponse.CreateAsync(getCartList, request.Page, request.Size);

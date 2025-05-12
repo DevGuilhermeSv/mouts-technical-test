@@ -50,6 +50,13 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
     /// <param name="entity">The entity to update</param>
     /// <returns>The created entity</returns>
     void Update(TEntity entity);
+
+    IQueryable<TEntity> Filter(IQueryable<TEntity>queryable, string property, string? filter);
+    IQueryable<TEntity> NumericFilter(IQueryable<TEntity> queryable, string property, decimal? filter);
+    IQueryable<TEntity> DateFilter(IQueryable<TEntity> queryable, string property, DateTime? filter);
+
+    
+    IOrderedQueryable<TEntity> OrderBy(string expression, CancellationToken cancellationToken = default);
     Task SaveChangesAsync(CancellationToken cancellationToken);
     
 }

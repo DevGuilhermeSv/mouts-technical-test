@@ -31,6 +31,13 @@ public class ListUsersQueryHandler : IRequestHandler<ListUsersQuery, PaginatedLi
             query = _userRepository.GetAll(orderBy, orderDir, cancellationToken);
         }
 
+        query = _userRepository.Filter(query, "Email", request.Email);
+        
+        query = _userRepository.Filter(query, "Username", request.Username);
+        
+        query = _userRepository.Filter(query, "Phone", request.Phone);
+        
+
         var getUserList = _mapper.ProjectTo<GetUserResult>(query);
         var result = await ListUsersResponse.CreateAsync(getUserList, request.Page, request.Size);
 

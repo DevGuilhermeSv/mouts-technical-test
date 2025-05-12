@@ -2,6 +2,7 @@ using Ambev.DeveloperEvaluation.Domain.Common;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
+using Ambev.DeveloperEvaluation.ORM.Common;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories;
 
@@ -70,10 +71,31 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         }
         return DbSet.OrderBy($"{orderBy} {orderDir}");
     }
-
+    
     public void Update(TEntity user)
     {
          DbSet.Update(user);
+    }
+
+    public IQueryable<TEntity> Filter(IQueryable<TEntity> queryable, string property, string? filter)
+    {
+        return queryable.Filter(property, filter);
+    }
+
+    public IQueryable<TEntity> NumericFilter(IQueryable<TEntity> queryable, string property, decimal? filter)
+    {
+        return queryable.FilterNumeric(property, filter);
+    }
+
+    public IQueryable<TEntity> DateFilter(IQueryable<TEntity> queryable, string property, DateTime? filter)
+    {
+        
+        return queryable.FilterDate(property, filter);
+    }
+    public IOrderedQueryable<TEntity> OrderBy(string expression, CancellationToken cancellationToken = default)
+    {
+        return DbSet.OrderBy(expression, cancellationToken);
+
     }
 
     public Task SaveChangesAsync(CancellationToken cancellationToken)

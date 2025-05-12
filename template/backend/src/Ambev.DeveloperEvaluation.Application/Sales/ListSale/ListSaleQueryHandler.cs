@@ -31,6 +31,13 @@ public class ListSalesQueryHandler : IRequestHandler<ListSalesQuery, PaginatedLi
             query = _SaleRepository.GetAll(orderBy, orderDir, cancellationToken);
         }
 
+        query = _SaleRepository.DateFilter(query, "_minDateSale", request.MinSaleDate);
+        
+        query = _SaleRepository.DateFilter(query, "_maxDateSale", request.MaxSaleDate);
+        query = _SaleRepository.NumericFilter(query, "TotalAmount", request.TotalAmount);
+        query = _SaleRepository.Filter(query, "Branch", request.Branch);
+        query = query.Where(x=>x.IsCancelled == request.IsCancelled | false);
+
         var getSaleList = _mapper.ProjectTo<GetSaleResult>(query);
         var result = await ListSalesResponse.CreateAsync(getSaleList, request.Page, request.Size);
 
