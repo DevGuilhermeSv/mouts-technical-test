@@ -82,7 +82,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         return queryable.Filter(property, filter);
     }
 
-    public IQueryable<TEntity> NumericFilter(IQueryable<TEntity> queryable, string property, double? filter)
+    public IQueryable<TEntity> NumericFilter(IQueryable<TEntity> queryable, string property, decimal? filter)
     {
         return queryable.FilterNumeric(property, filter);
     }

@@ -52,7 +52,7 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
     void Update(TEntity entity);
 
     IQueryable<TEntity> Filter(IQueryable<TEntity>queryable, string property, string? filter);
-    IQueryable<TEntity> NumericFilter(IQueryable<TEntity> queryable, string property, double? filter);
+    IQueryable<TEntity> NumericFilter(IQueryable<TEntity> queryable, string property, decimal? filter);
     
     IOrderedQueryable<TEntity> OrderBy(string expression, CancellationToken cancellationToken = default);
     Task SaveChangesAsync(CancellationToken cancellationToken);
