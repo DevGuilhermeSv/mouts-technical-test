@@ -13,7 +13,13 @@ public class CreateSaleProfile : Profile
     /// </summary>
     public CreateSaleProfile()
     {
-        CreateMap<Domain.Entities.Sale, CreateSaleResult>();
+        CreateMap<CreateSaleCommand, Sale>()
+            .ConstructUsing(cmd => new Sale(cmd.SaleDate, cmd.CustomerId, cmd.Branch,
+                cmd.Items.Select(item => new SaleItem(item.ProductId, item.Quantity, item.UnitPrice)).ToList()));
+        
+        CreateMap<Sale, CreateSaleResult>()
+            .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.UserId));
+        
         CreateMap<SaleItemDto, SaleItem>().ReverseMap();
     }
 }

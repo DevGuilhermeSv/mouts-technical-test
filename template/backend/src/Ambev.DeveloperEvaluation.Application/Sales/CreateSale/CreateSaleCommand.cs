@@ -20,6 +20,10 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 /// </remarks>
 public class CreateSaleCommand : BaseSaleDto, IRequest<CreateSaleResult>
 {
+    /// <summary>
+    /// The list of items sold in this sale.
+    /// </summary>
+    public required  List<SaleItemDto> Items { get;  set; } = new();
 
     public ValidationResultDetail Validate()
     {

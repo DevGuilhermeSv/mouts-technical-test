@@ -1,4 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Application.Address;
+﻿using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 
@@ -9,16 +9,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 /// This response contains the unique identifier of the newly created Sale,
 /// which can be used for subsequent operations or reference.
 /// </remarks>
-public class CreateSaleResult : BaseSaleDto
+public class CreateSaleResult : GetSaleResult
 {
-    /// <summary>
-    /// Gets or sets the unique identifier of the newly created Sale.
-    /// </summary>
-    /// <value>A GUID that uniquely identifies the created Sale in the system.</value>
-    public Guid Id { get; set; }
     
-    /// <summary>
-    /// The address of the Sale
-    /// </summary>
-    public BaseAddressDto? Address { get; set; }
 }

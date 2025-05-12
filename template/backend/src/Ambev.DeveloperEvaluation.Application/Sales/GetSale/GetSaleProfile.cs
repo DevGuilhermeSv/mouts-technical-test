@@ -1,3 +1,4 @@
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using AutoMapper;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale;
@@ -12,6 +13,8 @@ public class GetSaleProfile : Profile
     /// </summary>
     public GetSaleProfile()
     {
-        CreateMap<Domain.Entities.Sale, GetSaleResult>();
+        CreateMap<Sale, GetSaleResult>().IncludeBase<Sale,BaseSaleDto>();
+
+        CreateMap<SaleItem, SaleItemResult>();
     }
 }

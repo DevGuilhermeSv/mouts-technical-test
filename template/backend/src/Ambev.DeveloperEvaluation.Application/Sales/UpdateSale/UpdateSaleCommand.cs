@@ -11,5 +11,9 @@ public class UpdateSaleCommand : BaseSaleDto, IRequest<UpdateSaleResult>
     /// Gets or sets the ID of the Sale to update
     /// </summary>
     public Guid Id { get; set; }
+    /// <summary>
+    /// The list of items sold in this sale.
+    /// </summary>
+    public required  List<SaleItemDto> Items { get;  set; } = new();
     
 }

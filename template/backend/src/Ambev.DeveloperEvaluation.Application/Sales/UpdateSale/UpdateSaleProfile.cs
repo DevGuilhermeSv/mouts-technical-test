@@ -13,7 +13,10 @@ public class UpdateSaleProfile : Profile
     /// </summary>
     public UpdateSaleProfile()
     {
-        CreateMap<UpdateSaleCommand, Sale>();
-        CreateMap<Sale, UpdateSaleResult>();
+        CreateMap<UpdateSaleCommand, Sale>().IncludeBase<BaseSaleDto,Sale>()
+            .ConstructUsing(cmd => new Sale(cmd.SaleDate, cmd.CustomerId, cmd.Branch,
+                cmd.Items.Select(item => new SaleItem(item.ProductId, item.Quantity, item.UnitPrice)).ToList()));
+        
+        CreateMap<Sale, UpdateSaleResult>().IncludeBase<Sale,BaseSaleDto>();
     }
 }
