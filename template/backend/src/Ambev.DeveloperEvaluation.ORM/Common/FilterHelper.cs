@@ -49,4 +49,28 @@ public static class FilterHelper
         }
         return queryable;
     }
+    public static IQueryable<T> FilterDate<T>(this IQueryable<T> queryable, string property, DateTime? filter)
+    {
+        if (filter.HasValue)
+        {
+            if (property.StartsWith("_min"))
+            {
+                string baseProperty = property.Substring(4, property.Length-4);
+                string expression = $"{baseProperty} >= @0";
+                queryable = queryable.Where(expression, filter.Value);
+            }
+            else if (property.StartsWith("_max"))
+            {
+                string baseProperty = property.Substring(4, property.Length-4);
+                string expression = $"{baseProperty} <= @0";
+                queryable = queryable.Where(expression, filter.Value);
+            }
+            else
+            {
+                string expression = $"{property} == @0";
+                queryable = queryable.Where(expression, filter.Value);
+            }
+        }
+        return queryable;
+    }
 }

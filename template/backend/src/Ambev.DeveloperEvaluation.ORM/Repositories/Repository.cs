@@ -87,6 +87,11 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
         return queryable.FilterNumeric(property, filter);
     }
 
+    public IQueryable<TEntity> DateFilter(IQueryable<TEntity> queryable, string property, DateTime? filter)
+    {
+        
+        return queryable.FilterDate(property, filter);
+    }
     public IOrderedQueryable<TEntity> OrderBy(string expression, CancellationToken cancellationToken = default)
     {
         return DbSet.OrderBy(expression, cancellationToken);
