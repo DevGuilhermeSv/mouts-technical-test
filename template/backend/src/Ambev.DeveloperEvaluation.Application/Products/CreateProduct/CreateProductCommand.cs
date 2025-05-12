@@ -1,6 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Application.Address;
-using Ambev.DeveloperEvaluation.Common.Validation;
-using Ambev.DeveloperEvaluation.Domain.Enums;
+﻿using Ambev.DeveloperEvaluation.Common.Validation;
+using FluentValidation;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.CreateProduct;

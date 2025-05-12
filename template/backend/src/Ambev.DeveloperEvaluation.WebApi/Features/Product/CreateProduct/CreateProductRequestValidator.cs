@@ -1,6 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Validation;
-using Ambev.DeveloperEvaluation.WebApi.Features.Address;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Product.CreateProduct;
 
