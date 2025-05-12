@@ -1,13 +1,23 @@
 using System.Text.Json.Serialization;
+using Ambev.DeveloperEvaluation.WebApi.Common;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sale.ListSales;
 
 /// <summary>
 /// Request model for getting a Sale list
 /// </summary>
-public class ListSalesRequest
+public class ListSalesRequest : BaseFilterRequest
 {
-    [JsonPropertyName("_page")] public int Page { get; set; } = 1;
-    [JsonPropertyName("_size")] public int Size { get; set; } = 10;
-    [JsonPropertyName("_order")] public string? Order { get; set; } = null;
+    public int? SaleNumber { get;  set; }
+    [JsonPropertyName("_minSaleDate")]
+    public DateTime? MinSaleDate { get;  set; } 
+
+    [JsonPropertyName("_maxSaleDate")]
+    public DateTime? MaxSaleDate { get;  set; } 
+    
+    public string? Branch { get;  set; }
+  
+    public bool? IsCancelled { get;  set; }
+    
+    public decimal? TotalAmount { get;  set; }
 }
