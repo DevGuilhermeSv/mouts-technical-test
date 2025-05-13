@@ -1,26 +1,38 @@
 ﻿using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.Application.Carts.CreateCart;
-
-/// <summary>
-/// Validator for CreateCartCommand that defines validation rules for Cart creation command.
-/// </summary>
-public class CreateCartCommandValidator : AbstractValidator<CreateCartCommand>
+namespace Ambev.DeveloperEvaluation.Application.Carts.CreateCart
 {
     /// <summary>
-    /// Initializes a new instance of the CreateCartCommandValidator with defined validation rules.
+    /// Validator for the CreateCartCommand.
     /// </summary>
-    /// <remarks>
-    /// Validation rules include:
-    /// - Email: Must be in valid format (using EmailValidator)
-    /// - Cartname: Required, must be between 3 and 50 characters
-    /// - Password: Must meet security requirements (using PasswordValidator)
-    /// - Phone: Must match international format (+X XXXXXXXXXX)
-    /// - Status: Cannot be set to Unknown
-    /// - Role: Cannot be set to None
-    /// </remarks>
-    public CreateCartCommandValidator()
+    public class CreateCartValidator : AbstractValidator<CreateCartCommand>
     {
-        
+        public CreateCartValidator()
+        {
+            RuleFor(x => x.UserId)
+                .NotEmpty()
+                .WithMessage("UserId must not be empty.");
+
+            RuleFor(x => x.Date)
+                .LessThanOrEqualTo(DateTime.UtcNow)
+                .WithMessage("Date cannot be in the future.");
+
+            RuleFor(x => x.Products)
+                .NotNull()
+                .WithMessage("Products must not be null.")
+                .NotEmpty()
+                .WithMessage("At least one product must be provided.");
+
+            RuleForEach(x => x.Products).ChildRules(product =>
+            {
+                product.RuleFor(p => p.ProductId)
+                    .NotEmpty()
+                    .WithMessage("ProductId must not be empty.");
+
+                product.RuleFor(p => p.Quantity)
+                    .GreaterThan(0)
+                    .WithMessage("Quantity must be greater than 0.");
+            });
+        }
     }
 }
