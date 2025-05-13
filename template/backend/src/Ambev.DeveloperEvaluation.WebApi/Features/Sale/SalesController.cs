@@ -86,12 +86,7 @@ public class SalesController : BaseController
         var command = _mapper.Map<GetSaleCommand>(request.Id);
         var response = await _mediator.Send(command, cancellationToken);
 
-        return Ok(new ApiResponseWithData<GetSaleResponse>
-        {
-            Success = true,
-            Message = "Sale retrieved successfully",
-            Data = _mapper.Map<GetSaleResponse>(response)
-        });
+        return OkWithData(response, "Sale retrieved successfully");
     }
 
     /// <summary>
@@ -116,11 +111,7 @@ public class SalesController : BaseController
         var command = _mapper.Map<DeleteSaleCommand>(request.Id);
         await _mediator.Send(command, cancellationToken);
 
-        return Ok(new ApiResponse
-        {
-            Success = true,
-            Message = "Sale deleted successfully"
-        });
+        return Ok("Sale deleted successfully");
     }
 
     /// <summary>
@@ -164,7 +155,7 @@ public class SalesController : BaseController
         command.Id = id;
 
         var updatedSale = await _mediator.Send(command, cancellationToken);
-        return updatedSale == null ? NotFound() : Ok(updatedSale);
+        return updatedSale == null ? NotFound() : OkWithData(updatedSale,"Sale updated successfully");
     }
 
 }

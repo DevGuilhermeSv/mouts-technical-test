@@ -55,7 +55,8 @@ public class CartsController : BaseController
 
         var command = _mapper.Map<CreateCartCommand>(request);
         var response = await _mediator.Send(command, cancellationToken);
-
+        
+        var mappedResult = _mapper.Map<CreateCartResponse>(response);
         return Created(string.Empty, new ApiResponseWithData<CreateCartResponse>
         {
             Success = true,
@@ -86,12 +87,7 @@ public class CartsController : BaseController
         var command = _mapper.Map<GetCartCommand>(request.Id);
         var response = await _mediator.Send(command, cancellationToken);
 
-        return Ok(new ApiResponseWithData<GetCartResponse>
-        {
-            Success = true,
-            Message = "Cart retrieved successfully",
-            Data = _mapper.Map<GetCartResponse>(response)
-        });
+        return OkWithData(_mapper.Map<GetCartResponse>(response),"Cart retrieved successfully");
     }
 
     /// <summary>

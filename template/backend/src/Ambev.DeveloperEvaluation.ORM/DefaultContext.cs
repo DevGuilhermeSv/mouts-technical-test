@@ -26,6 +26,7 @@ public class DefaultContext : DbContext
         modelBuilder.AddressConfiguration();
         modelBuilder.ProductConfiguration();
         modelBuilder.SaleConfiguration();
+        modelBuilder.Entity<Cart>().Navigation(x=>x.Products);
     }
     }
 public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>
