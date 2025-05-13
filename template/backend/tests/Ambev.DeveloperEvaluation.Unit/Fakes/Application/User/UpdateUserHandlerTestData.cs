@@ -31,6 +31,7 @@ public static class UpdateUserHandlerTestData
             .RuleFor(u => u.Street, f => f.Address.StreetName())
             .RuleFor(u => u.Zipcode, f => f.Address.ZipCode());
         return new Faker<UpdateUserCommand>()
+            .RuleFor(u => u.Id, f => f.Random.Uuid())
             .RuleFor(u => u.Username, f => f.Internet.UserName())
             .RuleFor(u => u.Password, f => $"Test@{f.Random.Number(100, 999)}")
             .RuleFor(u => u.Email, f => f.Internet.Email())
@@ -43,7 +44,7 @@ public static class UpdateUserHandlerTestData
                 LastName = f.Name.LastName(),
             })
             .RuleFor(u => u.Address, f => addressValidator.Generate() );
-    } 
+    }
     
     /// <summary>
     /// Generates a valid User entity with randomized data.
