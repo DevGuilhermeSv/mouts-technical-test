@@ -13,21 +13,19 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.CreateCart;
 /// </summary>
 public class CreateCartHandler : IRequestHandler<CreateCartCommand, CreateCartResult>
 {
-    private readonly ICartRepository _CartRepository;
+    private readonly ICartRepository _cartRepository;
     private readonly IMapper _mapper;
-    private readonly IPasswordHasher _passwordHasher;
 
     /// <summary>
     /// Initializes a new instance of CreateCartHandler
     /// </summary>
-    /// <param name="CartRepository">The Cart repository</param>
+    /// <param name="cartRepository">The Cart repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
     /// <param name="validator">The validator for CreateCartCommand</param>
-    public CreateCartHandler(ICartRepository CartRepository, IMapper mapper, IPasswordHasher passwordHasher)
+    public CreateCartHandler(ICartRepository cartRepository, IMapper mapper)
     {
-        _CartRepository = CartRepository;
+        _cartRepository = cartRepository;
         _mapper = mapper;
-        _passwordHasher = passwordHasher;
     }
 
     /// <summary>
@@ -43,9 +41,9 @@ public class CreateCartHandler : IRequestHandler<CreateCartCommand, CreateCartRe
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
         
-        var Cart = _mapper.Map<Cart>(command);
-        await _CartRepository.CreateAsync(Cart, cancellationToken);
+        var cart = _mapper.Map<Cart>(command);
+        await _cartRepository.CreateAsync(cart, cancellationToken);
 
-        return new CreateCartResult();
+        return _mapper.Map<CreateCartResult>(cart);
     }
 }
