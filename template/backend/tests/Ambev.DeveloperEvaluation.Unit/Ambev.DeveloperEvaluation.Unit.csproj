@@ -42,7 +42,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Application\Fakes\" />
 	  <Folder Include="Fakes\Api\" />
 	</ItemGroup>
 
