@@ -14,7 +14,7 @@ namespace Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
 /// the request that returns a <see cref="CreateProductResult"/>. 
 /// 
 /// The data provided in this command is validated using the 
-/// <see cref="CreateProductCommandValidator"/>, which extends 
+/// <see cref="CreateProductValidator"/>, which extends 
 /// <see cref="AbstractValidator{T}"/> to ensure that all fields 
 /// are correctly populated and adhere to the required validation rules.
 /// </remarks>
@@ -23,7 +23,7 @@ public class CreateProductCommand : BaseProductDto, IRequest<CreateProductResult
 
     public ValidationResultDetail Validate()
     {
-        var validator = new CreateProductCommandValidator();
+        var validator = new CreateProductValidator();
         var result = validator.Validate(this);
         return new ValidationResultDetail
         {
