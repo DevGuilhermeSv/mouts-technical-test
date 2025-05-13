@@ -33,4 +33,15 @@ public static class EntitiesConfiguration
             .WithMany()
             .HasForeignKey(x=>x.UserId);
     }
+
+    public static void UserConfiguration(this ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>()
+            .OwnsOne(x => x.Name)
+            .Property(x => x.FirstName).HasColumnName("FirstName");
+        
+        modelBuilder.Entity<User>()
+            .OwnsOne(x => x.Name)
+            .Property(x => x.LastName).HasColumnName("LastName");
+    }
 }

@@ -18,6 +18,8 @@ public class User : BaseEntity, IUser
     /// Must not be null or empty and should contain both first and last names.
     /// </summary>
     public string Username { get; set; } = string.Empty;
+    
+    public Name Name { get; set; }
 
     /// <summary>
     /// Gets the user's email address.
@@ -156,4 +158,17 @@ public class User : BaseEntity, IUser
         Status = UserStatus.Suspended;
         UpdatedAt = DateTime.UtcNow;
     }
+}
+
+public class Name
+{
+    public Name(string firstName, string lastName)
+    {
+        FirstName = string.IsNullOrEmpty(firstName) ? throw new ArgumentNullException(nameof(firstName)) : firstName;
+        LastName = string.IsNullOrEmpty(lastName) ? throw new ArgumentNullException(nameof(lastName)) : lastName;
+         
+    }
+
+    public string FirstName { get; set; }
+    public string LastName { get; set; } 
 }
