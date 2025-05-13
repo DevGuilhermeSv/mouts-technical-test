@@ -38,14 +38,16 @@ public class CreateProductHandler : IRequestHandler<CreateProductCommand, Create
     /// <returns>The created Product details</returns>
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
-        var validator = new CreateProductCommandValidator();
+        var validator = new CreateProductValidator();
         var validationResult = await validator.ValidateAsync(command, cancellationToken);
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
         
         var product = _mapper.Map<Product>(command);
         await _ProductRepository.CreateAsync(product, cancellationToken);
+        
+        var result = _mapper.Map<CreateProductResult>(product);
 
-        return new CreateProductResult();
+        return result;
     }
 }

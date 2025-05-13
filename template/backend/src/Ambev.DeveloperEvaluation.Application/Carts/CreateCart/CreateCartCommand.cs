@@ -25,7 +25,7 @@ public class CreateCartCommand : BaseCartDto, IRequest<CreateCartResult>
 
     public ValidationResultDetail Validate()
     {
-        var validator = new CreateCartCommandValidator();
+        var validator = new CreateCartValidator();
         var result = validator.Validate(this);
         return new ValidationResultDetail
         {

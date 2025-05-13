@@ -14,7 +14,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 /// the request that returns a <see cref="CreateSaleResult"/>. 
 /// 
 /// The data provided in this command is validated using the 
-/// <see cref="CreateSaleCommandValidator"/>, which extends 
+/// <see cref="CreateSaleValidator"/>, which extends 
 /// <see cref="AbstractValidator{T}"/> to ensure that all fields 
 /// are correctly populated and adhere to the required validation rules.
 /// </remarks>
@@ -27,7 +27,7 @@ public class CreateSaleCommand : BaseSaleDto, IRequest<CreateSaleResult>
 
     public ValidationResultDetail Validate()
     {
-        var validator = new CreateSaleCommandValidator();
+        var validator = new CreateSaleValidator();
         var result = validator.Validate(this);
         return new ValidationResultDetail
         {

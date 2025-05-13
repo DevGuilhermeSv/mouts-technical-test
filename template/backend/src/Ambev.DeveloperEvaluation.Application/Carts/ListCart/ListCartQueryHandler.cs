@@ -27,10 +27,10 @@ public class ListCartsQueryHandler : IRequestHandler<ListCartsQuery, PaginatedLi
             var orderBy = orderings[0];
             string? orderDir = null;
             if(orderings.Length > 1)
-                orderDir = (orderings[1] is "desc" or "asc") ? orderings[1] : "desc"; 
+                orderDir = (orderings[1] is "desc" or "asc") ? orderings[1] : "asc"; 
             query = _CartRepository.GetAll(orderBy, orderDir, cancellationToken);
         }
-        
+         
         query = _CartRepository.DateFilter(query, "_minDate", request.MinDate);
         
         query = _CartRepository.DateFilter(query, "_maxDate", request.MaxDate);

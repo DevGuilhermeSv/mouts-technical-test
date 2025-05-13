@@ -5,7 +5,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData
 {
     public static class CartFaker
     {
-        public static Faker<Cart> GetCartFaker()
+        private static Faker<Cart> GetCartFaker()
         {
             var cartProductFaker = CartProductFaker.GetCartProductFaker();
 

@@ -38,7 +38,7 @@ public class CreateCartHandler : IRequestHandler<CreateCartCommand, CreateCartRe
     /// <returns>The created Cart details</returns>
     public async Task<CreateCartResult> Handle(CreateCartCommand command, CancellationToken cancellationToken)
     {
-        var validator = new CreateCartCommandValidator();
+        var validator = new CreateCartValidator();
         var validationResult = await validator.ValidateAsync(command, cancellationToken);
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
