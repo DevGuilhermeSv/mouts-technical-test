@@ -18,7 +18,6 @@ public class CreateCartHandlerTests
 {
     private readonly ICartRepository _cartRepository;
     private readonly IMapper _mapper;
-    private readonly IPasswordHasher _passwordHasher;
     private readonly CreateCartHandler _handler;
 
     /// <summary>
@@ -29,8 +28,7 @@ public class CreateCartHandlerTests
     {
         _cartRepository = Substitute.For<ICartRepository>();
         _mapper = Substitute.For<IMapper>();
-        _passwordHasher = Substitute.For<IPasswordHasher>();
-        _handler = new CreateCartHandler(_cartRepository, _mapper, _passwordHasher);
+        _handler = new CreateCartHandler(_cartRepository, _mapper);
     }
 
     /// <summary>
@@ -52,7 +50,6 @@ public class CreateCartHandlerTests
 
         _cartRepository.CreateAsync(Arg.Any<Cart>(), Arg.Any<CancellationToken>())
             .Returns(cart);
-        _passwordHasher.HashPassword(Arg.Any<string>()).Returns("hashedPassword");
 
         // When
         var createCartResult = await _handler.Handle(command, CancellationToken.None);
@@ -93,7 +90,6 @@ public class CreateCartHandlerTests
         _mapper.Map<Cart>(command).Returns(cart);
         _cartRepository.CreateAsync(Arg.Any<Cart>(), Arg.Any<CancellationToken>())
             .Returns(cart);
-        _passwordHasher.HashPassword(Arg.Any<string>()).Returns("hashedPassword");
 
         // When
         await _handler.Handle(command, CancellationToken.None);
