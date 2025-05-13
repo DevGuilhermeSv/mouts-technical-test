@@ -1,26 +1,40 @@
 ﻿using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
-
-/// <summary>
-/// Validator for CreateSaleCommand that defines validation rules for Sale creation command.
-/// </summary>
-public class CreateSaleCommandValidator : AbstractValidator<CreateSaleCommand>
+namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
 {
     /// <summary>
-    /// Initializes a new instance of the CreateSaleCommandValidator with defined validation rules.
+    /// Validator for CreateSaleCommand
     /// </summary>
-    /// <remarks>
-    /// Validation rules include:
-    /// - Email: Must be in valid format (using EmailValidator)
-    /// - Salename: Required, must be between 3 and 50 characters
-    /// - Password: Must meet security requirements (using PasswordValidator)
-    /// - Phone: Must match international format (+X XXXXXXXXXX)
-    /// - Status: Cannot be set to Unknown
-    /// - Role: Cannot be set to None
-    /// </remarks>
-    public CreateSaleCommandValidator()
+    public class CreateSaleValidator : AbstractValidator<CreateSaleCommand>
     {
-        
+        public CreateSaleValidator()
+        {
+            RuleFor(x => x.CustomerId)
+                .NotEmpty().WithMessage("CustomerId is required.");
+
+            RuleFor(x => x.SaleDate)
+                .LessThanOrEqualTo(DateTime.UtcNow)
+                .WithMessage("SaleDate cannot be in the future.");
+
+            RuleFor(x => x.Branch)
+                .NotEmpty().WithMessage("Branch is required.")
+                .MaximumLength(100).WithMessage("Branch must be at most 100 characters.");
+
+            RuleFor(x => x.Items)
+                .NotNull().WithMessage("Items list cannot be null.")
+                .NotEmpty().WithMessage("At least one sale item is required.");
+
+            RuleForEach(x => x.Items).ChildRules(item =>
+            {
+                item.RuleFor(i => i.ProductId)
+                    .NotEmpty().WithMessage("ProductId is required.");
+
+                item.RuleFor(i => i.Quantity)
+                    .GreaterThan(0).WithMessage("Quantity must be greater than zero.");
+
+                item.RuleFor(i => i.UnitPrice)
+                    .GreaterThan(0).WithMessage("UnitPrice must be greater than zero.");
+            });
+        }
     }
 }
