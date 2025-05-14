@@ -15,5 +15,6 @@ public class CreateUserProfile : Profile
     {
         CreateMap<CreateUserCommand, User>();
         CreateMap<User, CreateUserResult>();
+        CreateMap<NameDto, Name>().ReverseMap();
     }
 }

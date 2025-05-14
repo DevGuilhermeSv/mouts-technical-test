@@ -67,6 +67,8 @@ public class UsersControllerTests : IClassFixture<CustomWebApplication>
         
         user!.Data.Phone.Should().Be(createRequest.Phone);
         
+        user!.Data.Name.Should().Be(createRequest.Name);
+        
         user!.Data.Username.Should().Be(createRequest.Username);
     }
 }
