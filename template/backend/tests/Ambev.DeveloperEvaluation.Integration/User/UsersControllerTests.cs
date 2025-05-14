@@ -43,7 +43,6 @@ public class UsersControllerTests : IClassFixture<CustomWebApplication>
     [Fact]
     public async Task GetUser_ShouldReturnUser_WhenUserExists()
     {
-        // Pré-criação de usuário
         var createRequest = CreateUserRequestTestData.GenerateValidCommand();
 
         var content = new StringContent(JsonConvert.SerializeObject(createRequest), Encoding.UTF8, "application/json");
@@ -63,12 +62,12 @@ public class UsersControllerTests : IClassFixture<CustomWebApplication>
         user.Should().NotBeNull();
         user!.Data.Id.Should().Be(userId);
         
-        user!.Data.Email.Should().Be(createRequest.Email);
+        user.Data.Email.Should().Be(createRequest.Email);
         
-        user!.Data.Phone.Should().Be(createRequest.Phone);
+        user.Data.Phone.Should().Be(createRequest.Phone);
         
-        user!.Data.Name.Should().Be(createRequest.Name);
+        user.Data.Name.Should().Be(createRequest.Name);
         
-        user!.Data.Username.Should().Be(createRequest.Username);
+        user.Data.Username.Should().Be(createRequest.Username);
     }
 }
